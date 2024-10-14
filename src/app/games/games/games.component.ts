@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Game } from '../model/game';
 import { AppMaterialModule } from '../../shared/app-material/app-material.module';
 import { GamesService } from '../services/games.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-games',
@@ -12,9 +13,7 @@ import { GamesService } from '../services/games.service';
 })
 export class GamesComponent {
 
-  games: Game[] = [
-    { _id: '1', name: 'Toy Story', genre: 'Animation'}
-  ];
+  games: Observable<Game[]>;
   displayedColumns = ['name', 'genre'];
 
   constructor(private gamesService: GamesService) {
