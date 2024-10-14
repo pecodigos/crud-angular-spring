@@ -4,6 +4,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [RouterOutlet, MatToolbarModule,
     MatTableModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    MatDialogModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
