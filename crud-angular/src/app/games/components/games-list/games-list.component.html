@@ -21,19 +21,21 @@
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">
+
     <mat-header-cell *matHeaderCellDef class="action-column-header">
       <button mat-mini-fab color="primary" aria-label="Add a new game" (click)="onAdd()">
         <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
-     <mat-cell *matCellDef="let game" class="action-column">
+    <mat-cell *matCellDef="let game" class="action-column">
       <button mat-icon-button aria-label="Edit a game" (click)="onEdit(game)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" aria-label="Remove a game">
+      <button mat-icon-button color="warn" aria-label="Remove a game" (click)="onDelete(game)">
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>
+
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

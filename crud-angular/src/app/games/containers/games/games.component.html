@@ -7,7 +7,7 @@
 
     <div class="column-flex mat-elevation-z8">
       <app-games-list *ngIf="games$ | async as games; else loading"
-      [games]="games" (add)="onAdd()" (edit)="onEdit($event)">
+      [games]="games" (add)="onAdd()" (edit)="onEdit($event)" (remove)="onRemove($event)">
       </app-games-list>
 
       <ng-template #loading>

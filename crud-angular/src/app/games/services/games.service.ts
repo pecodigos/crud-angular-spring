@@ -26,12 +26,9 @@ export class GamesService {
   }
 
   save(record: Partial<Game>) {
-    console.log(record);
     if (record._id) {
-      console.log('update');
       return this.update(record);
     }
-    console.log('create');
     return this.create(record);
   }
 
@@ -41,5 +38,9 @@ export class GamesService {
 
   private update(record: Partial<Game>) {
     return this.httpClient.put<Game>(`${this.API}/${record._id}`, record);
+  }
+
+  remove(id: string) {
+    return this.httpClient.delete(`${this.API}/${id}`);
   }
 }

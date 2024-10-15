@@ -9,29 +9,36 @@ import { ErrorDialogComponent } from '../../../shared/components/error-dialog/er
 import { SharedModule } from '../../../shared/shared.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GamesListComponent } from "../../components/games-list/games-list.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-games',
   standalone: true,
   imports: [AppMaterialModule,
     CommonModule,
-    SharedModule, GamesListComponent],
+    SharedModule,
+    GamesListComponent],
   templateUrl: './games.component.html',
   styleUrl: './games.component.scss'
 })
 export class GamesComponent {
 
-  games$: Observable<Game[]>;
+  games$: Observable<Game[]> | null = null;
 
   constructor(
     private gamesService: GamesService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar) {
 
+    this.refresh();
+  }
+
+  refresh() {
     this.games$ = this.gamesService.list()
     .pipe(
-      catchError(error => {
+      catchError(() => {
         this.onError('Error loading games.');
         return of([])
       })
@@ -49,6 +56,17 @@ export class GamesComponent {
   }
 
   onEdit(game: Game) {
-    this.router.navigate(['edit', game._id], {relativeTo: this.route})
+    this.router.navigate(['edit', game._id], {relativeTo: this.route});
+  }
+
+  onRemove(game: Game) {
+    this.gamesService.remove(game._id).subscribe( {
+      next: () => {
+        this.refresh(),
+        this.snackBar.open('Game deleted successfully!', 'X',
+          {duration: 4000, verticalPosition: 'top', horizontalPosition: 'center'});
+      },
+      error: () => this.onError('Error while trying to remove a game.')
+    });
   }
 }
