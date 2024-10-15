@@ -26,6 +26,20 @@ export class GamesService {
   }
 
   save(record: Partial<Game>) {
+    console.log(record);
+    if (record._id) {
+      console.log('update');
+      return this.update(record);
+    }
+    console.log('create');
+    return this.create(record);
+  }
+
+  private create(record: Partial<Game>) {
     return this.httpClient.post<Game>(this.API, record);
+  }
+
+  private update(record: Partial<Game>) {
+    return this.httpClient.put<Game>(`${this.API}/${record._id}`, record);
   }
 }
