@@ -4,7 +4,7 @@
         Game details
     </mat-toolbar>
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="min-width">
       <mat-form-field class="full-width">
         <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
@@ -13,8 +13,8 @@
         <mat-label>Genre</mat-label>
           <mat-select formControlName="genre">
             <mat-option value="null"></mat-option>
-            <mat-option value="option2">Turn-based RPG</mat-option>
-            <mat-option value="option3">FPS</mat-option>
+            <mat-option value="Turn-based RPG">Turn-based RPG</mat-option>
+            <mat-option value="FPS">FPS</mat-option>
           </mat-select>
       </mat-form-field>
 
@@ -22,8 +22,8 @@
         <mat-label>Platform</mat-label>
           <mat-select formControlName="platform">
             <mat-option value="null"></mat-option>
-            <mat-option value="option2">Playstation 1</mat-option>
-            <mat-option value="option3">PC</mat-option>
+            <mat-option value="Playstation 1">Playstation 1</mat-option>
+            <mat-option value="PC">PC</mat-option>
           </mat-select>
       </mat-form-field>
     </form>

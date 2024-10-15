@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { GamesService } from '../services/games.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-game-form',
@@ -29,7 +30,8 @@ export class GameFormComponent {
 
   constructor(private formBuilder: FormBuilder,
     private service: GamesService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private location: Location) {
     this.form = this.formBuilder.group({
       name: [null],
       genre: [null],
@@ -39,7 +41,10 @@ export class GameFormComponent {
 
     onSubmit() {
       this.service.save(this.form.value).subscribe({
-        next: (result) => console.log(result),
+        next: () => {
+          this.onSuccess();
+          this.location.back();
+        },
         error: () => {
           this.onError();
         },
@@ -47,10 +52,14 @@ export class GameFormComponent {
     }
 
     onCancel() {
+      this.location.back();
+    }
 
+    private onSuccess() {
+      this.snackBar.open('Game saved sucessfully!', '', { duration: 4000})
     }
 
     private onError() {
-      this.snackBar.open('Error saving game', '', { duration: 4000})
+      this.snackBar.open('Error saving game.', '', { duration: 4000})
     }
 }

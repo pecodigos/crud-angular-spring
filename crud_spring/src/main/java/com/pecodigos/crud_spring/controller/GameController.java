@@ -3,10 +3,9 @@ package com.pecodigos.crud_spring.controller;
 import com.pecodigos.crud_spring.model.Game;
 import com.pecodigos.crud_spring.repository.GameRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +19,11 @@ public class GameController {
     @GetMapping
     public @ResponseBody List<Game> list() {
         return gameRepository.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Game create(@RequestBody Game game) {
+        return gameRepository.save(game);
     }
 }
