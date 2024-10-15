@@ -47,4 +47,14 @@ public class GameController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return gameRepository.findById(id)
+                .map(record -> {
+                    gameRepository.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
