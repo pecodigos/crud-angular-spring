@@ -27,7 +27,7 @@
       </button>
     </mat-header-cell>
      <mat-cell *matCellDef="let game" class="action-column">
-      <button mat-icon-button aria-label="Edit a game">
+      <button mat-icon-button aria-label="Edit a game" (click)="onEdit(game)">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button color="warn" aria-label="Remove a game">

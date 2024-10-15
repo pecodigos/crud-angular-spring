@@ -47,4 +47,8 @@ export class GamesComponent {
   onAdd() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
+
+  onEdit(game: Game) {
+    this.router.navigate(['edit', game._id], {relativeTo: this.route})
+  }
 }

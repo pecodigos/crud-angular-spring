@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { GamesService } from '../../services/games.service';
+import { ActivatedRoute } from '@angular/router';
+import { Game } from '../../model/game';
 
 @Component({
   selector: 'app-game-form',
@@ -27,6 +29,7 @@ import { GamesService } from '../../services/games.service';
 export class GameFormComponent {
 
   form = this.formBuilder.group({
+    _id: [''],
     name: [''],
     genre: [''],
     platform: ['']
@@ -35,9 +38,17 @@ export class GameFormComponent {
   constructor(private formBuilder: NonNullableFormBuilder,
     private service: GamesService,
     private snackBar: MatSnackBar,
-    private location: Location) {
-
-   }
+    private location: Location,
+    private route: ActivatedRoute) {
+      const game: Game = this.route.snapshot.data['game'];
+      console.log(game);
+      this.form.setValue({
+        _id: game._id,
+        name: game.name,
+        genre: game.genre,
+        platform: game.platform
+      })
+    }
 
     onSubmit() {
       this.service.save(this.form.value).subscribe({

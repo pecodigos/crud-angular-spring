@@ -14,6 +14,7 @@ export class GamesListComponent {
 
   @Input() games: Game[] = [];
   @Output() add = new EventEmitter(false);
+  @Output() edit = new EventEmitter(false);
 
   readonly displayedColumns = ['name', 'genre', 'platform', 'actions'];
 
@@ -21,5 +22,9 @@ export class GamesListComponent {
 
   onAdd() {
     this.add.emit(true);
+  }
+
+  onEdit(game: Game) {
+    this.edit.emit(game);
   }
 }

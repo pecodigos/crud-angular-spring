@@ -21,6 +21,10 @@ export class GamesService {
     );
   }
 
+  loadById(id: string) {
+    return this.httpClient.get<Game>(`${this.API}/${id}`);
+  }
+
   save(record: Partial<Game>) {
     return this.httpClient.post<Game>(this.API, record);
   }
