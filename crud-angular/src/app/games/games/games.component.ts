@@ -8,20 +8,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
 import { SharedModule } from '../../shared/shared.module';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GamesListComponent } from "../games-list/games-list.component";
 
 @Component({
   selector: 'app-games',
   standalone: true,
   imports: [AppMaterialModule,
     CommonModule,
-    SharedModule],
+    SharedModule, GamesListComponent],
   templateUrl: './games.component.html',
   styleUrl: './games.component.scss'
 })
 export class GamesComponent {
 
   games$: Observable<Game[]>;
-  displayedColumns = ['name', 'genre', 'platform', 'actions'];
 
   constructor(
     private gamesService: GamesService,
