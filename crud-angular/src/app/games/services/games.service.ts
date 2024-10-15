@@ -21,7 +21,7 @@ export class GamesService {
     );
   }
 
-  save(record: Game) {
+  save(record: Partial<Game>) {
     return this.httpClient.post<Game>(this.API, record);
   }
 }

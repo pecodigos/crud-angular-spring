@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,24 +19,24 @@ import { Location } from '@angular/common';
     MatCardModule,
     MatToolbarModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   templateUrl: './game-form.component.html',
   styleUrl: './game-form.component.scss'
 })
 export class GameFormComponent {
 
-  form: FormGroup;
+  form = this.formBuilder.group({
+    name: [''],
+    genre: [''],
+    platform: ['']
+  });
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: NonNullableFormBuilder,
     private service: GamesService,
     private snackBar: MatSnackBar,
     private location: Location) {
-    this.form = this.formBuilder.group({
-      name: [null],
-      genre: [null],
-      platform: [null]
-    });
+
    }
 
     onSubmit() {
