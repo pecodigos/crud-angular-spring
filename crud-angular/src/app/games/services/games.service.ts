@@ -16,7 +16,7 @@ export class GamesService {
     return this.httpClient.get<Game[]>(this.API)
     .pipe(
       first(),
-      delay(1000),
+      // delay(500),
       tap(games => console.log(games))
     );
   }

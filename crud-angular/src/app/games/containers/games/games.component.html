@@ -6,7 +6,7 @@
     </mat-toolbar>
 
     <div class="column-flex mat-elevation-z8">
-      <app-games-list *ngIf="games$ | async as games; else loading" [games]="games">
+      <app-games-list *ngIf="games$ | async as games; else loading" [games]="games" (add)="onAdd()">
       </app-games-list>
 
       <ng-template #loading>

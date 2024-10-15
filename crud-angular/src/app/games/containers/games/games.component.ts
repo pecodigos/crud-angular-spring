@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Game } from '../model/game';
-import { AppMaterialModule } from '../../shared/app-material/app-material.module';
-import { GamesService } from '../services/games.service';
+import { Game } from '../../model/game';
+import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+import { GamesService } from '../../services/games.service';
 import { catchError, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
-import { SharedModule } from '../../shared/shared.module';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import { SharedModule } from '../../../shared/shared.module';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GamesListComponent } from "../games-list/games-list.component";
+import { GamesListComponent } from "../../components/games-list/games-list.component";
 
 @Component({
   selector: 'app-games',
