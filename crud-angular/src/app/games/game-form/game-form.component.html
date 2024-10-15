@@ -10,11 +10,21 @@
         </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput placeholder="Genre" formControlName="genre">
-    </mat-form-field>
+        <mat-label>Genre</mat-label>
+          <mat-select formControlName="genre">
+            <mat-option value="null"></mat-option>
+            <mat-option value="option2">Turn-based RPG</mat-option>
+            <mat-option value="option3">FPS</mat-option>
+          </mat-select>
+      </mat-form-field>
 
       <mat-form-field class="full-width">
-        <input matInput placeholder="Platform" formControlName="platform">
+        <mat-label>Platform</mat-label>
+          <mat-select formControlName="platform">
+            <mat-option value="null"></mat-option>
+            <mat-option value="option2">Playstation 1</mat-option>
+            <mat-option value="option3">PC</mat-option>
+          </mat-select>
       </mat-form-field>
     </form>
   </mat-card-content>

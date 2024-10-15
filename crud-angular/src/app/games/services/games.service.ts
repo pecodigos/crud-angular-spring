@@ -20,4 +20,8 @@ export class GamesService {
       tap(games => console.log(games))
     );
   }
+
+  save(record: Game) {
+    return this.httpClient.post<Game>(this.API, record);
+  }
 }
