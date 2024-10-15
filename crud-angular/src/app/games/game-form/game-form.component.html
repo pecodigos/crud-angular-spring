@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-content>
+    <mat-toolbar color="primary">
+        Game details
+    </mat-toolbar>
+
+    <form [formGroup]="form">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Genre" formControlName="genre">
+    </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Platform" formControlName="platform">
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+  </mat-card-actions>
+</mat-card>

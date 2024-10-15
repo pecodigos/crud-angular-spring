@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../../shared/components/error-dialog/error-dialog.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-games',
@@ -20,11 +21,14 @@ import { SharedModule } from '../../shared/shared.module';
 export class GamesComponent {
 
   games$: Observable<Game[]>;
-  displayedColumns = ['name', 'genre', 'platform'];
+  displayedColumns = ['name', 'genre', 'platform', 'actions'];
 
   constructor(
     private gamesService: GamesService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute) {
+
     this.games$ = this.gamesService.list()
     .pipe(
       catchError(error => {
@@ -38,5 +42,9 @@ export class GamesComponent {
     this.dialog.open(ErrorDialogComponent, {
       data: errorMsg
     });
+  }
+
+  onAdd() {
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 }
