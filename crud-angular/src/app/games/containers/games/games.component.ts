@@ -10,6 +10,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GamesListComponent } from "../../components/games-list/games-list.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-games',
@@ -60,13 +61,21 @@ export class GamesComponent {
   }
 
   onRemove(game: Game) {
-    this.gamesService.remove(game._id).subscribe( {
-      next: () => {
-        this.refresh(),
-        this.snackBar.open('Game deleted successfully!', 'X',
-          {duration: 4000, verticalPosition: 'top', horizontalPosition: 'center'});
-      },
-      error: () => this.onError('Error while trying to remove a game.')
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: 'Are you sure that you want to remove this game?',
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.gamesService.remove(game._id).subscribe( {
+        next: () => {
+          this.refresh(),
+          this.snackBar.open('Game deleted successfully!', 'X',
+            {duration: 4000, verticalPosition: 'top', horizontalPosition: 'center'});
+        },
+        error: () => this.onError('Error while trying to remove a game.')
+        });
+      }
     });
   }
 }

@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { GenrePipe } from './pipes/genre.pipe';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
   declarations: [
     ErrorDialogComponent,
-    GenrePipe
+    GenrePipe,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { GenrePipe } from './pipes/genre.pipe';
   ],
   exports: [
     ErrorDialogComponent,
-    GenrePipe
+    GenrePipe,
+    ConfirmationDialogComponent
   ]
 })
 export class SharedModule { }
