@@ -2,14 +2,18 @@ package com.pecodigos.crud_spring.controller;
 
 import com.pecodigos.crud_spring.model.Game;
 import com.pecodigos.crud_spring.repository.GameRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@Validated
 @RestController
 @RequestMapping("/api/games")
 @AllArgsConstructor
@@ -18,40 +22,40 @@ public class GameController {
     private final GameRepository gameRepository;
 
     @GetMapping
-    public @ResponseBody List<Game> list() {
+    public List<Game> list() {
         return gameRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Game> findById(@PathVariable Long id) {
+    public ResponseEntity<Game> findById(@PathVariable @NotNull @Positive Long id) {
         return gameRepository.findById(id)
-                .map(record -> ResponseEntity.ok().body(record))
+                .map(data -> ResponseEntity.ok().body(data))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Game create(@RequestBody Game game) {
+    public Game create(@RequestBody @Valid Game game) {
         return gameRepository.save(game);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Game> update(@PathVariable Long id, @RequestBody Game game) {
+    public ResponseEntity<Game> update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Game game) {
         return gameRepository.findById(id)
-                .map(record -> {
-                    record.setName(game.getName());
-                    record.setGenre(game.getGenre());
-                    record.setPlatform(game.getPlatform());
-                    Game updated = gameRepository.save(record);
+                .map(data -> {
+                    data.setName(game.getName());
+                    data.setGenre(game.getGenre());
+                    data.setPlatform(game.getPlatform());
+                    Game updated = gameRepository.save(data);
                     return ResponseEntity.ok().body(updated);
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
         return gameRepository.findById(id)
-                .map(record -> {
+                .map(data -> {
                     gameRepository.deleteById(id);
                     return ResponseEntity.noContent().<Void>build();
                 })
