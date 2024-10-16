@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,9 +30,9 @@ export class GameFormComponent {
 
   form = this.formBuilder.group({
     _id: [''],
-    name: [''],
-    genre: [''],
-    platform: ['']
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    genre: ['', [Validators.required]],
+    platform: ['', [Validators.required]]
   });
 
   constructor(private formBuilder: NonNullableFormBuilder,
@@ -72,5 +72,25 @@ export class GameFormComponent {
 
     private onError() {
       this.snackBar.open('Error saving game.', '', { duration: 4000})
+    }
+
+    errorMessage(fieldName: string) {
+      const field = this.form.get(fieldName);
+
+      if (field?.hasError('required')) {
+        return 'You must enter a value';
+      }
+
+      if (field?.hasError('minlength')) {
+        const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 2;
+        return `Name must contain at least ${requiredLength} characters.`;
+      }
+
+      if (field?.hasError('maxlength')) {
+        const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
+        return `Name must contain at most ${requiredLength} characters.`;
+      }
+
+      return 'Invalid field';
     }
 }
