@@ -1,6 +1,6 @@
 package com.pecodigos.crud_spring.controller;
 
-import com.pecodigos.crud_spring.model.Game;
+import com.pecodigos.crud_spring.dto.GameDTO;
 import com.pecodigos.crud_spring.service.GameService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -21,23 +21,23 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public List<Game> list() {
+    public List<GameDTO> list() {
         return gameService.list();
     }
 
     @GetMapping("/{id}")
-    public Game findById(@PathVariable @NotNull @Positive Long id) {
+    public GameDTO findById(@PathVariable @NotNull @Positive Long id) {
         return gameService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Game create(@RequestBody @Valid Game game) {
+    public GameDTO create(@RequestBody @Valid GameDTO game) {
         return gameService.create(game);
     }
 
     @PutMapping("/{id}")
-    public Game update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Game game) {
+    public GameDTO update(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid GameDTO game) {
         return gameService.update(id, game);
     }
 

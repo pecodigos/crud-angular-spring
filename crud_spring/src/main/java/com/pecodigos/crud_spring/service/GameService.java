@@ -1,39 +1,45 @@
 package com.pecodigos.crud_spring.service;
 
+import com.pecodigos.crud_spring.dto.GameDTO;
+import com.pecodigos.crud_spring.dto.mapper.GameMapper;
 import com.pecodigos.crud_spring.exceptions.RecordNotFoundException;
-import com.pecodigos.crud_spring.model.Game;
 import com.pecodigos.crud_spring.repository.GameRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final GameMapper gameMapper;
 
-    public List<Game> list() {
-        return gameRepository.findAll();
+    public List<GameDTO> list() {
+        return gameRepository.findAll()
+                .stream().map(gameMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Game findById(Long id) {
+    public GameDTO findById(Long id) {
         return gameRepository.findById(id)
+                .map(gameMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public Game create(Game game) {
-        return gameRepository.save(game);
+    public GameDTO create(GameDTO game) {
+        return gameMapper.toDTO(gameRepository.save(gameMapper.toEntity(game)));
     }
 
-    public Game update(Long id, Game game) {
+    public GameDTO update(Long id, GameDTO game) {
         return gameRepository.findById(id)
                 .map(data -> {
-                    data.setName(game.getName());
-                    data.setGenre(game.getGenre());
-                    data.setPlatform(game.getPlatform());
-                    return gameRepository.save(data);
+                    data.setName(game.name());
+                    data.setGenre(game.genre());
+                    data.setPlatform(game.platform());
+                    return gameMapper.toDTO(gameRepository.save(data));
                 })
                 .orElseThrow(() -> new RecordNotFoundException(id));
     }
